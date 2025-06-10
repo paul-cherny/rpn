@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | venv
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+max-complexity = 10
+ignore = "E203, W503"
+exclude = [".git", "__pycache__", "venv", "dist", "build"]
+per-file-ignores = [
+    "__init__.py:F401",
+]
+
+[tool.pytest.ini_options]
+addopts = "-v --cov=rpn --cov-report=term-missing"
+testpaths = ["test"]
+
+[tool.coverage.run]
+source = ["rpn"]
+branch = true
+omit = ["rpn/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]
+
+pythonpath = "."
